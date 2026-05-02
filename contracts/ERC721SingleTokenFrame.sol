@@ -8,6 +8,7 @@ import "./interfaces/IFrame.sol";
 contract ERC721SingleTokenFrame is ERC721, IFrame {
     uint256 public constant MAX_SUPPLY = 1;
     uint256 public royaltyPercentage = 5; // 5% royalty
+    address public minter;
 
     constructor(
         string memory _name,
@@ -18,6 +19,7 @@ contract ERC721SingleTokenFrame is ERC721, IFrame {
             revert InvalidRoyaltyPercentage(_royaltyPercentage);
         }
         royaltyPercentage = _royaltyPercentage;
+        minter = tx.origin;
         _mint(tx.origin, 1);
     }
 
