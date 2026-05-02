@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 
 import "./interfaces/IFrame.sol";
 
-contract ERC1155Frame is ERC1155, IFrame {
+contract ERC1155SingleTokenFrame is ERC1155, IFrame {
     uint256 public constant MAX_SUPPLY = 1;
     uint256 public constant TOKEN_ID = 1;
     uint256 public royaltyPercentage = 5; // 5% royalty
