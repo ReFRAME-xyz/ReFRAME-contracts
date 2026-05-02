@@ -20,7 +20,7 @@ contract ERC1155SingleTokenFrame is ERC1155, IFrame {
             revert InvalidRoyaltyPercentage(_royaltyPercentage);
         }
         royaltyPercentage = _royaltyPercentage;
-        _mint(msg.sender, TOKEN_ID, 1, "");
+        _mint(tx.origin, TOKEN_ID, 1, "");
     }
 
     function uri(uint256 tokenId) public view override returns (string memory) {
