@@ -777,6 +777,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@openzeppelin/contracts@npm:^5.0.1":
+  version: 5.6.1
+  resolution: "@openzeppelin/contracts@npm:5.6.1"
+  checksum: 10c0/f00ecd2b63ca99361e772a9355a587345a2b2af8ead3e88996e0bd1eef89221c3f762cfb77632c1a6ea866a5d3bc030eea1790bd9d326d8ad71f8edee20a5b37
+  languageName: node
+  linkType: hard
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -1126,6 +1133,7 @@ __metadata:
     "@nomicfoundation/hardhat-network-helpers": "npm:^1.0.0"
     "@nomicfoundation/hardhat-toolbox": "npm:^6.0.0"
     "@nomicfoundation/hardhat-verify": "npm:^2.0.0"
+    "@openzeppelin/contracts": "npm:^5.0.1"
     "@typechain/ethers-v6": "npm:^0.5.0"
     "@typechain/hardhat": "npm:^9.0.0"
     "@types/chai": "npm:^4.2.0"
@@ -5089,8 +5097,8 @@ __metadata:
   linkType: hard
 
 "viem@npm:^2.27.0":
-  version: 2.48.4
-  resolution: "viem@npm:2.48.4"
+  version: 2.48.8
+  resolution: "viem@npm:2.48.8"
   dependencies:
     "@noble/curves": "npm:1.9.1"
     "@noble/hashes": "npm:1.8.0"
@@ -5105,7 +5113,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/c8c5f94c74403ea48ebef9bfc6c744fe96e8573f9000940f7127dc5157f2d0de52fd1434ce498aa698454d30e312406ae320b6f81629f07fb60b4a13e1e3b5ae
+  checksum: 10c0/801d08331024467496730151fbd7e389147d186c13817b7bc9fa707fbb2d0c844e649a4e8ce6dbf3c2a91accc8f14bbef7c255c98eecb5d8201eb22bfdebafa9
   languageName: node
   linkType: hard
 
