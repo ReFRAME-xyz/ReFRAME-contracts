@@ -37,7 +37,7 @@ contract ERC1155SingleTokenFrame is ERC1155, IFrame {
         _mint(tx.origin, TOKEN_ID, 1, "");
     }
 
-    function uri(uint256 tokenId) public view override returns (string memory) {
+    function uri(uint256 tokenId) public pure override returns (string memory) {
         return
             string(
                 abi.encodePacked(
