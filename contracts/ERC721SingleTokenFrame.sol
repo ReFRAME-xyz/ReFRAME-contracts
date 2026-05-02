@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 import "./interfaces/IFrame.sol";
 
-contract ERC721Frame is ERC721, IFrame {
+contract ERC721SingleTokenFrame is ERC721, IFrame {
     uint256 public constant MAX_SUPPLY = 1;
     uint256 public royaltyPercentage = 5; // 5% royalty
 
@@ -18,7 +18,7 @@ contract ERC721Frame is ERC721, IFrame {
             revert InvalidRoyaltyPercentage(_royaltyPercentage);
         }
         royaltyPercentage = _royaltyPercentage;
-        _mint(msg.sender, 1);
+        _mint(tx.origin, 1);
     }
 
     function _baseURI() internal pure override returns (string memory) {
