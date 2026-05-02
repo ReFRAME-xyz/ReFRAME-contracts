@@ -5,13 +5,13 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
 
 import "./ERC721SingleTokenFrame.sol";
-import "./interfaces/IFrameFactory.sol";
+import "./interfaces/IERC721FrameFactory.sol";
 
-contract ERC721Factory is IFrameFactory, AccessControl, Pausable {
+contract ERC721Factory is IERC721FrameFactory, AccessControl, Pausable {
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
-    constructor(address _admin) IFrameFactory() {
+    constructor(address _admin) IERC721FrameFactory() {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(ADMIN_ROLE, msg.sender);
         _grantRole(PAUSER_ROLE, msg.sender);
