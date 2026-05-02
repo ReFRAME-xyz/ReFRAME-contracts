@@ -20,16 +20,16 @@ contract ERC1155SingleTokenFrame is ERC1155, IFrame {
     string private _symbol;
 
     constructor(
-        string memory _name,
-        string memory _symbol,
+        string memory name_,
+        string memory symbol_,
         uint256 _royaltyPercentage
     ) ERC1155("") IFrame() {
         if (_royaltyPercentage < 5 || _royaltyPercentage > 100) {
             revert InvalidRoyaltyPercentage(_royaltyPercentage);
         }
 
-        _name = _name;
-        _symbol = _symbol;
+        _name = name_;
+        _symbol = symbol_;
 
         royaltyPercentage = _royaltyPercentage;
         minter = tx.origin;
