@@ -1,0 +1,27 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
+import "./interfaces/IFrame.sol";
+
+contract ERC721Frame is ERC721, IFrame {
+    uint256 public constant MAX_SUPPLY = 1;
+    uint256 public royaltyPercentage = 5; // 5% royalty
+
+    constructor(
+        string memory _name,
+        string memory _symbol,
+        uint256 _royaltyPercentage
+    ) ERC721(_name, _symbol) IFrame() {
+        if (_royaltyPercentage < 5 || _royaltyPercentage > 100) {
+            revert InvalidRoyaltyPercentage(_royaltyPercentage);
+        }
+        royaltyPercentage = _royaltyPercentage;
+        _mint(msg.sender, 1);
+    }
+
+    function _baseURI() internal pure override returns (string memory) {
+        return "https://reframehub.xyz/api/metadata/";
+    }
+}
