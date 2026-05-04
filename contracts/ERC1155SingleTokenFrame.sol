@@ -11,7 +11,7 @@ contract ERC1155SingleTokenFrame is ERC1155Burnable, IFrame {
     uint256 public constant TOKEN_ID = 1;
 
     uint256 public royaltyPercentage;
-    address public minter;
+    address public creator;
 
     // Token name
     string private _name;
@@ -35,7 +35,7 @@ contract ERC1155SingleTokenFrame is ERC1155Burnable, IFrame {
         _symbol = symbol_;
 
         royaltyPercentage = _royaltyPercentage;
-        minter = tx.origin;
+        creator = tx.origin;
 
         _mint(tx.origin, TOKEN_ID, 1, "");
     }
