@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 
 import "./interfaces/IFrame.sol";
 
-contract ERC721SingleTokenFrame is ERC721, IFrame {
+contract ERC721SingleTokenFrame is ERC721Burnable, IFrame {
     uint256 public constant MAX_SUPPLY = 1;
     uint256 public royaltyPercentage = 5; // 5% royalty
     address public minter;

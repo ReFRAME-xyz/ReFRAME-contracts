@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 import "./interfaces/IFrame.sol";
 
-contract ERC1155SingleTokenFrame is ERC1155, IFrame {
+contract ERC1155SingleTokenFrame is ERC1155Burnable, IFrame {
     uint256 public constant MAX_SUPPLY = 1;
     uint256 public constant TOKEN_ID = 1;
 
