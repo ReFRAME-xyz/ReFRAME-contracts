@@ -27,9 +27,9 @@ contract ERC1155SingleTokenFrame is ERC1155Burnable, IFrame, AccessControl {
         string memory symbol_,
         uint256 _royaltyPercentage
     ) ERC1155("") IFrame() {
-        _grantRole(DEFAULT_ADMIN_ROLE, tx.origin);
-        _grantRole(ADMIN_ROLE, tx.origin);
-        _grantRole(MINTER_ROLE, tx.origin);
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(ADMIN_ROLE, msg.sender);
+        _grantRole(MINTER_ROLE, msg.sender);
 
         if (
             _royaltyPercentage != 0 &&
