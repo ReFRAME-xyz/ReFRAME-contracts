@@ -6,8 +6,10 @@ import {
   HardhatUserConfig,
   HttpNetworkAccountsUserConfig,
 } from "hardhat/types";
+import { vars } from "hardhat/config";
 import "@nomicfoundation/hardhat-ignition-ethers";
 
+const ETHERSCAN_API_KEY = vars.get("ETHERSCAN_API_KEY");
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 const accounts: HttpNetworkAccountsUserConfig | undefined = PRIVATE_KEY
@@ -70,7 +72,7 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      base: process.env.BASESCAN || "",
+      base: ETHERSCAN_API_KEY,
     },
     customChains: [
       {
