@@ -34,8 +34,6 @@ contract ERC721SingleTokenFactory is
 
         emit NFTDropped(address(newNFT), msg.sender);
 
-        newNFT.supportsInterface(0x80ac58cd);
-
         newNFT.mint(msg.sender, 1);
 
         emit NFTMinted(address(newNFT), msg.sender, 1);

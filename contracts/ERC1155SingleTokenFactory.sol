@@ -36,8 +36,6 @@ contract ERC1155SingleTokenFactory is
 
         emit NFTDropped(address(newNFT), msg.sender, _editionSize);
 
-        newNFT.supportsInterface(0xd9b67a26);
-
         newNFT.mint(msg.sender, newNFT.TOKEN_ID(), _editionSize, "");
 
         emit NFTMinted(
