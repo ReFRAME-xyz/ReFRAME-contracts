@@ -34,7 +34,7 @@ contract ERC721SingleTokenFrame is ERC721Burnable, IERC721Frame, AccessControl {
     }
 
     function mint(address to, uint256 tokenId) external onlyRole(MINTER_ROLE) {
-        if (ownerOf(tokenId) != address(0)) {
+        if (_ownerOf(tokenId) != address(0)) {
             revert TokenAlreadyMinted(tokenId);
         }
         if (totalSupply >= MAX_SUPPLY) {
