@@ -66,11 +66,11 @@ contract ERC721SingleTokenFactory is
             ERC721SingleTokenFrame(newNFTAddress).DEFAULT_ADMIN_ROLE(),
             address(this)
         );
-        ERC721SingleTokenFrame(newNFTAddress).revokeRole(
+        ERC721SingleTokenFrame(newNFTAddress).renounceRole(
             ERC721SingleTokenFrame(newNFTAddress).ADMIN_ROLE(),
             address(this)
         );
-        ERC721SingleTokenFrame(newNFTAddress).revokeRole(
+        ERC721SingleTokenFrame(newNFTAddress).renounceRole(
             ERC721SingleTokenFrame(newNFTAddress).MINTER_ROLE(),
             address(this)
         );

@@ -66,11 +66,11 @@ contract ERC1155SingleTokenFactory is
             ERC1155SingleTokenFrame(newNFTAddress).DEFAULT_ADMIN_ROLE(),
             address(this)
         );
-        ERC1155SingleTokenFrame(newNFTAddress).revokeRole(
+        ERC1155SingleTokenFrame(newNFTAddress).renounceRole(
             ERC1155SingleTokenFrame(newNFTAddress).ADMIN_ROLE(),
             address(this)
         );
-        ERC1155SingleTokenFrame(newNFTAddress).revokeRole(
+        ERC1155SingleTokenFrame(newNFTAddress).renounceRole(
             ERC1155SingleTokenFrame(newNFTAddress).MINTER_ROLE(),
             address(this)
         );
