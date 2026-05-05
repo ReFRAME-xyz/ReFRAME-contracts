@@ -5,6 +5,13 @@ interface IERC721FrameFactory {
     /// @notice Emitted when a new NFT is created
     event NFTDropped(address indexed nftAddress, address indexed creator);
 
+    /// @notice Emitted when a new NFT is minted
+    event NFTMinted(
+        address indexed nftAddress,
+        address indexed to,
+        uint256 tokenId
+    );
+
     /// @notice Emitted when factory is paused or unpaused
     event PausedStateChanged(bool isPaused);
 

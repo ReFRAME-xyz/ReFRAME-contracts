@@ -9,6 +9,14 @@ interface IERC1155FrameFactory {
         uint256 editionSize
     );
 
+    /// @notice Emitted when a new NFT is minted
+    event NFTMinted(
+        address indexed nftAddress,
+        address indexed to,
+        uint256 tokenId,
+        uint256 amount
+    );
+
     /// @notice Emitted when factory is paused or unpaused
     event PausedStateChanged(bool isPaused);
 
