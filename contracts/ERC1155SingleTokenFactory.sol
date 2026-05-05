@@ -7,7 +7,11 @@ import "@openzeppelin/contracts/utils/Pausable.sol";
 import "./ERC1155SingleTokenFrame.sol";
 import "./interfaces/IERC1155FrameFactory.sol";
 
-contract ERC1155Factory is IERC1155FrameFactory, AccessControl, Pausable {
+contract ERC1155SingleTokenFactory is
+    IERC1155FrameFactory,
+    AccessControl,
+    Pausable
+{
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
