@@ -4,9 +4,13 @@ pragma solidity ^0.8.24;
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
-import "./interfaces/IFrame.sol";
+import "./interfaces/IERC1155Frame.sol";
 
-contract ERC1155SingleTokenFrame is ERC1155Burnable, IFrame, AccessControl {
+contract ERC1155SingleTokenFrame is
+    ERC1155Burnable,
+    IERC1155Frame,
+    AccessControl
+{
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
@@ -22,11 +26,18 @@ contract ERC1155SingleTokenFrame is ERC1155Burnable, IFrame, AccessControl {
     // Token symbol
     string private _symbol;
 
+    // max supply of each token ID
+    mapping(uint256 => uint256) public editionSizes;
+
+    // total supply of each token ID
+    mapping(uint256 => uint256) public editionCounts;
+
     constructor(
         string memory name_,
         string memory symbol_,
-        uint256 _royaltyPercentage
-    ) ERC1155("") IFrame() {
+        uint256 _royaltyPercentage,
+        uint256 _editionSize
+    ) ERC1155("") IERC1155Frame() {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(ADMIN_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, msg.sender);
@@ -44,7 +55,7 @@ contract ERC1155SingleTokenFrame is ERC1155Burnable, IFrame, AccessControl {
         royaltyPercentage = _royaltyPercentage;
         creator = tx.origin;
 
-        _mint(tx.origin, TOKEN_ID, 1, "");
+        editionSizes[TOKEN_ID] = _editionSize;
     }
 
     function uri(uint256 tokenId) public pure override returns (string memory) {
@@ -63,6 +74,53 @@ contract ERC1155SingleTokenFrame is ERC1155Burnable, IFrame, AccessControl {
 
     function symbol() public view virtual returns (string memory) {
         return _symbol;
+    }
+
+    function mint(
+        address to,
+        uint256 tokenId,
+        uint256 amount,
+        bytes memory data
+    ) external onlyRole(MINTER_ROLE) {
+        if (editionCounts[tokenId] >= editionSizes[tokenId]) {
+            revert EditionSizeExceeded(tokenId, editionSizes[tokenId]);
+        }
+        _mint(to, tokenId, amount, data);
+        editionCounts[tokenId] += amount;
+    }
+
+    function mintBatch(
+        address to,
+        uint256[] memory tokenIds,
+        uint256[] memory amounts,
+        bytes memory data
+    ) external onlyRole(MINTER_ROLE) {
+        for (uint256 i = 0; i < tokenIds.length; i++) {
+            if (editionCounts[tokenIds[i]] >= editionSizes[tokenIds[i]]) {
+                revert EditionSizeExceeded(
+                    tokenIds[i],
+                    editionSizes[tokenIds[i]]
+                );
+            }
+            editionCounts[tokenIds[i]] += amounts[i];
+        }
+        _mintBatch(to, tokenIds, amounts, data);
+    }
+
+    function burn(address account, uint256 id, uint256 amount) public override {
+        super.burn(account, id, amount);
+        editionCounts[id] -= amount;
+    }
+
+    function burnBatch(
+        address account,
+        uint256[] memory ids,
+        uint256[] memory amounts
+    ) public override {
+        super.burnBatch(account, ids, amounts);
+        for (uint256 i = 0; i < ids.length; i++) {
+            editionCounts[ids[i]] -= amounts[i];
+        }
     }
 
     function supportsInterface(
