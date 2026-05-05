@@ -56,6 +56,6 @@ contract ERC721SingleTokenFrame is ERC721Burnable, IERC721Frame, AccessControl {
     }
 
     function _baseURI() internal pure override returns (string memory) {
-        return "https://reframehub.xyz/api/metadata/";
+        return "https://test.xyz/api/metadata/";
     }
 }

@@ -58,24 +58,6 @@ contract ERC1155SingleTokenFrame is
         editionSizes[TOKEN_ID] = _editionSize;
     }
 
-    function uri(uint256 tokenId) public pure override returns (string memory) {
-        return
-            string(
-                abi.encodePacked(
-                    "https://reframehub.xyz/api/metadata/",
-                    Strings.toString(tokenId)
-                )
-            );
-    }
-
-    function name() public view virtual returns (string memory) {
-        return _name;
-    }
-
-    function symbol() public view virtual returns (string memory) {
-        return _symbol;
-    }
-
     function mint(
         address to,
         uint256 tokenId,
@@ -121,6 +103,24 @@ contract ERC1155SingleTokenFrame is
         for (uint256 i = 0; i < ids.length; i++) {
             editionCounts[ids[i]] -= amounts[i];
         }
+    }
+
+    function uri(uint256 tokenId) public pure override returns (string memory) {
+        return
+            string(
+                abi.encodePacked(
+                    "https://test.xyz/api/metadata/",
+                    Strings.toString(tokenId)
+                )
+            );
+    }
+
+    function name() public view virtual returns (string memory) {
+        return _name;
+    }
+
+    function symbol() public view virtual returns (string memory) {
+        return _symbol;
     }
 
     function supportsInterface(
