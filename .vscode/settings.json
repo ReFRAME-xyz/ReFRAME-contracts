@@ -1,4 +1,8 @@
 {
+  "[solidity]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
   "search.exclude": {
     "**/.yarn": true,
     "**/.pnp.*": true
