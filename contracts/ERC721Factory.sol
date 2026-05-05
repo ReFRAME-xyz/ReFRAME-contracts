@@ -27,7 +27,12 @@ contract ERC721Factory is IERC721FrameFactory, AccessControl, Pausable {
             _symbol,
             _royaltyPercentage
         );
+
         emit NFTDropped(address(newNFT), msg.sender);
+
+        newNFT.mint(msg.sender, 1);
+
+        _setupRoles(address(newNFT));
     }
 
     function pause() external onlyRole(PAUSER_ROLE) {
@@ -38,5 +43,32 @@ contract ERC721Factory is IERC721FrameFactory, AccessControl, Pausable {
     function unpause() external onlyRole(PAUSER_ROLE) {
         _unpause();
         emit PausedStateChanged(false);
+    }
+
+    function _setupRoles(address newNFTAddress) internal {
+        ERC721SingleTokenFrame(newNFTAddress).grantRole(
+            ERC721SingleTokenFrame(newNFTAddress).DEFAULT_ADMIN_ROLE(),
+            msg.sender
+        );
+        ERC721SingleTokenFrame(newNFTAddress).grantRole(
+            ERC721SingleTokenFrame(newNFTAddress).ADMIN_ROLE(),
+            msg.sender
+        );
+        ERC721SingleTokenFrame(newNFTAddress).grantRole(
+            ERC721SingleTokenFrame(newNFTAddress).MINTER_ROLE(),
+            msg.sender
+        );
+        ERC721SingleTokenFrame(newNFTAddress).renounceRole(
+            ERC721SingleTokenFrame(newNFTAddress).DEFAULT_ADMIN_ROLE(),
+            address(this)
+        );
+        ERC721SingleTokenFrame(newNFTAddress).revokeRole(
+            ERC721SingleTokenFrame(newNFTAddress).ADMIN_ROLE(),
+            address(this)
+        );
+        ERC721SingleTokenFrame(newNFTAddress).revokeRole(
+            ERC721SingleTokenFrame(newNFTAddress).MINTER_ROLE(),
+            address(this)
+        );
     }
 }

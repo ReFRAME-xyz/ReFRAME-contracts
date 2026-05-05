@@ -26,9 +26,13 @@ contract ERC1155Factory is IERC1155FrameFactory, AccessControl, Pausable {
         ERC1155SingleTokenFrame newNFT = new ERC1155SingleTokenFrame(
             _name,
             _symbol,
-            _royaltyPercentage
+            _royaltyPercentage,
+            _editionSize
         );
+
         emit NFTDropped(address(newNFT), msg.sender, _editionSize);
+
+        newNFT.mint(msg.sender, newNFT.TOKEN_ID(), _editionSize, "");
     }
 
     function pause() external onlyRole(PAUSER_ROLE) {
@@ -39,5 +43,32 @@ contract ERC1155Factory is IERC1155FrameFactory, AccessControl, Pausable {
     function unpause() external onlyRole(PAUSER_ROLE) {
         _unpause();
         emit PausedStateChanged(false);
+    }
+
+    function _setupRoles(address newNFTAddress) internal {
+        ERC1155SingleTokenFrame(newNFTAddress).grantRole(
+            ERC1155SingleTokenFrame(newNFTAddress).DEFAULT_ADMIN_ROLE(),
+            msg.sender
+        );
+        ERC1155SingleTokenFrame(newNFTAddress).grantRole(
+            ERC1155SingleTokenFrame(newNFTAddress).ADMIN_ROLE(),
+            msg.sender
+        );
+        ERC1155SingleTokenFrame(newNFTAddress).grantRole(
+            ERC1155SingleTokenFrame(newNFTAddress).MINTER_ROLE(),
+            msg.sender
+        );
+        ERC1155SingleTokenFrame(newNFTAddress).renounceRole(
+            ERC1155SingleTokenFrame(newNFTAddress).DEFAULT_ADMIN_ROLE(),
+            address(this)
+        );
+        ERC1155SingleTokenFrame(newNFTAddress).revokeRole(
+            ERC1155SingleTokenFrame(newNFTAddress).ADMIN_ROLE(),
+            address(this)
+        );
+        ERC1155SingleTokenFrame(newNFTAddress).revokeRole(
+            ERC1155SingleTokenFrame(newNFTAddress).MINTER_ROLE(),
+            address(this)
+        );
     }
 }
