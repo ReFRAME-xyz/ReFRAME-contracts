@@ -37,7 +37,7 @@ contract ERC1155SingleTokenFrame is
         string memory symbol_,
         uint256 _royaltyPercentage,
         uint256 _editionSize
-    ) ERC1155("") IERC1155Frame() {
+    ) ERC1155("") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(ADMIN_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, msg.sender);

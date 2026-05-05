@@ -18,7 +18,7 @@ contract ERC721SingleTokenFrame is ERC721Burnable, IERC721Frame, AccessControl {
         string memory _name,
         string memory _symbol,
         uint256 _royaltyPercentage
-    ) ERC721(_name, _symbol) IFrame() {
+    ) ERC721(_name, _symbol) {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(ADMIN_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, msg.sender);
