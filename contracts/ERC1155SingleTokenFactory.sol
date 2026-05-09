@@ -24,7 +24,7 @@ contract ERC1155SingleTokenFactory is
     function dropNFT(
         string memory _name,
         string memory _symbol,
-        uint256 _royaltyPercentage,
+        uint96 _royaltyPercentage,
         uint256 _editionSize
     ) external whenNotPaused {
         ERC1155SingleTokenFrame newNFT = new ERC1155SingleTokenFrame(

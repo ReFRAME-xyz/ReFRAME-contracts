@@ -24,7 +24,7 @@ interface IERC1155FrameFactory {
     function dropNFT(
         string memory _name,
         string memory _symbol,
-        uint256 _royaltyPercentage,
+        uint96 _royaltyPercentage, // in basis points (1 bp = 0.01%)
         uint256 _editionSize
     ) external;
 }

@@ -24,7 +24,7 @@ contract ERC721SingleTokenFactory is
     function dropNFT(
         string memory _name,
         string memory _symbol,
-        uint256 _royaltyPercentage
+        uint96 _royaltyPercentage
     ) external whenNotPaused {
         ERC721SingleTokenFrame newNFT = new ERC721SingleTokenFrame(
             _name,
