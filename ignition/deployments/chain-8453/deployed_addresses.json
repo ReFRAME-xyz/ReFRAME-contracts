@@ -1,4 +1,5 @@
 {
   "ERC721SingleTokenFactory#ERC721SingleTokenFactory": "0xb27722DD70c2a834FFb630E5d69Dd90B9EE043fb",
-  "ERC1155SingleTokenFactory#ERC1155SingleTokenFactory": "0xCeBA27A2A90c42345F22f24EBA26b9dE073C7ead"
+  "ERC1155SingleTokenFactory#ERC1155SingleTokenFactory": "0xCeBA27A2A90c42345F22f24EBA26b9dE073C7ead",
+  "ReframeMarketplace#ReframeMarketplace": "0x9231a92649846C7d7F0aeD8AAC162891C09155f3"
 }
