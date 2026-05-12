@@ -39,7 +39,7 @@ abstract contract MarketplaceBase is
     //                           CONSTANTS
     // =============================================================
 
-    uint96 public constant MAX_MARKETPLACE_FEE_BPS = 1000;
+    uint96 public constant MAX_MARKETPLACE_FEE_BPS = 10_000; // 100% in basis points
 
     uint256 internal constant BPS_DENOMINATOR = 10_000;
 
