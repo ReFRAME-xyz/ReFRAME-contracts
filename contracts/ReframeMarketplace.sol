@@ -204,7 +204,9 @@ contract ReframeMarketplace is MarketplaceBase {
             revert ListingSoldOut();
         }
 
-        if (msg.value != listing.price) {
+        uint256 totalCost = listing.price * amount;
+
+        if (msg.value != totalCost) {
             revert InvalidPaymentAmount();
         }
 
@@ -217,13 +219,13 @@ contract ReframeMarketplace is MarketplaceBase {
         (address royaltyReceiver, uint256 royaltyAmount) = _getRoyaltyInfo(
             listing.nft,
             listing.tokenId,
-            listing.price
+            totalCost
         );
 
-        uint256 marketplaceFee = (listing.price * marketplaceFeeBps) /
+        uint256 marketplaceFee = (totalCost * marketplaceFeeBps) /
             BPS_DENOMINATOR;
 
-        uint256 sellerAmount = listing.price - royaltyAmount - marketplaceFee;
+        uint256 sellerAmount = totalCost - royaltyAmount - marketplaceFee;
 
         // royalty
         if (royaltyAmount > 0 && royaltyReceiver != address(0)) {
@@ -241,7 +243,7 @@ contract ReframeMarketplace is MarketplaceBase {
         // transfer nft
         _transferNFT(address(this), msg.sender, listing, amount);
 
-        emit Purchased(listingId, msg.sender, listing.price);
+        emit Purchased(listingId, msg.sender, amount, listing.price);
     }
 
     // =============================================================

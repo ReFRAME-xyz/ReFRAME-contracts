@@ -47,6 +47,7 @@ interface IFrameMarketplace {
     event Purchased(
         uint256 indexed listingId,
         address indexed buyer,
+        uint256 amount,
         uint256 price
     );
 
