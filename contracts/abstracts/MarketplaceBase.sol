@@ -80,7 +80,8 @@ abstract contract MarketplaceBase is
     function _transferNFT(
         address from,
         address to,
-        Listing memory listing
+        Listing memory listing,
+        uint256 amount
     ) internal {
         if (listing.standard == TokenStandard.ERC721) {
             IERC721(listing.nft).safeTransferFrom(from, to, listing.tokenId);
@@ -89,7 +90,7 @@ abstract contract MarketplaceBase is
                 from,
                 to,
                 listing.tokenId,
-                listing.amount,
+                amount,
                 ""
             );
         } else {

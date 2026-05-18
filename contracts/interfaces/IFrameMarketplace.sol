@@ -20,6 +20,7 @@ interface IFrameMarketplace {
         address nft;
         uint256 tokenId;
         uint256 amount;
+        uint256 soldAmount;
         address seller;
         uint256 price;
         bool active;
@@ -85,6 +86,7 @@ interface IFrameMarketplace {
     error TransferFailed();
     error UnsupportedTokenStandard();
     error NFTNotOwned();
+    error ListingSoldOut();
 
     // =============================================================
     //                         MAIN FUNCTIONS
@@ -101,5 +103,5 @@ interface IFrameMarketplace {
 
     function delist(uint256 listingId) external;
 
-    function buy(uint256 listingId) external payable;
+    function buy(uint256 listingId, uint256 amount) external payable;
 }

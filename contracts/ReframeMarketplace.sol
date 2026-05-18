@@ -56,6 +56,7 @@ contract ReframeMarketplace is MarketplaceBase {
             nft: nft,
             tokenId: tokenId,
             amount: 1,
+            soldAmount: 0,
             seller: msg.sender,
             price: price,
             active: true,
@@ -111,6 +112,7 @@ contract ReframeMarketplace is MarketplaceBase {
             nft: nft,
             tokenId: tokenId,
             amount: amount,
+            soldAmount: 0,
             seller: msg.sender,
             price: price,
             active: true,
@@ -170,7 +172,12 @@ contract ReframeMarketplace is MarketplaceBase {
 
         listing.active = false;
 
-        _transferNFT(address(this), listing.seller, listing);
+        _transferNFT(
+            address(this),
+            listing.seller,
+            listing,
+            listing.amount - listing.soldAmount
+        );
 
         emit Delisted(listingId);
     }
@@ -180,7 +187,8 @@ contract ReframeMarketplace is MarketplaceBase {
     // =============================================================
 
     function buy(
-        uint256 listingId
+        uint256 listingId,
+        uint256 amount
     ) external payable override whenNotPaused nonReentrant {
         Listing storage listing = listings[listingId];
 
@@ -192,11 +200,19 @@ contract ReframeMarketplace is MarketplaceBase {
             revert ListingLockedError();
         }
 
+        if (amount + listing.soldAmount > listing.amount) {
+            revert ListingSoldOut();
+        }
+
         if (msg.value != listing.price) {
             revert InvalidPaymentAmount();
         }
 
-        listing.active = false;
+        listing.soldAmount += amount;
+
+        if (listing.soldAmount == listing.amount) {
+            listing.active = false;
+        }
 
         (address royaltyReceiver, uint256 royaltyAmount) = _getRoyaltyInfo(
             listing.nft,
@@ -223,7 +239,7 @@ contract ReframeMarketplace is MarketplaceBase {
         _sendNative(listing.seller, sellerAmount);
 
         // transfer nft
-        _transferNFT(address(this), msg.sender, listing);
+        _transferNFT(address(this), msg.sender, listing, amount);
 
         emit Purchased(listingId, msg.sender, listing.price);
     }
