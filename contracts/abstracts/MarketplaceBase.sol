@@ -55,9 +55,22 @@ abstract contract MarketplaceBase is
 
     mapping(uint256 => Listing) public listings;
 
+    // Mapp listings to the corresponding user and token
+    // mapping(user => mapping(collection => mapping(tokenID => listing)))
+    mapping(address => mapping(address => mapping(uint256 => uint256)))
+        public nftListings;
+
     // =============================================================
     //                            PUBLICS
     // =============================================================
+
+    function getListingInfo(
+        address seller,
+        address nft,
+        uint256 tokenId
+    ) public view returns (Listing memory) {
+        return listings[nftListings[seller][nft][tokenId]];
+    }
 
     function supportsInterface(
         bytes4 interfaceId
