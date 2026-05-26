@@ -63,6 +63,7 @@ contract ReframeMarketplace is MarketplaceBase {
             locked: false,
             standard: TokenStandard.ERC721
         });
+        nftListings[msg.sender][nft][tokenId] = listingId;
 
         erc721.safeTransferFrom(msg.sender, address(this), tokenId);
 
@@ -119,6 +120,7 @@ contract ReframeMarketplace is MarketplaceBase {
             locked: false,
             standard: TokenStandard.ERC1155
         });
+        nftListings[msg.sender][nft][tokenId] = listingId;
 
         uint256 preBalance = erc1155.balanceOf(address(this), tokenId);
 
@@ -171,15 +173,11 @@ contract ReframeMarketplace is MarketplaceBase {
         }
 
         listing.active = false;
+        uint256 delistedAmount = listing.amount - listing.soldAmount;
 
-        _transferNFT(
-            address(this),
-            listing.seller,
-            listing,
-            listing.amount - listing.soldAmount
-        );
+        _transferNFT(address(this), listing.seller, listing, delistedAmount);
 
-        emit Delisted(listingId);
+        emit Delisted(listingId, delistedAmount);
     }
 
     // =============================================================

@@ -42,7 +42,7 @@ interface IFrameMarketplace {
         TokenStandard standard
     );
 
-    event Delisted(uint256 indexed listingId);
+    event Delisted(uint256 indexed listingId, uint256 delistedAmount);
 
     event Purchased(
         uint256 indexed listingId,
