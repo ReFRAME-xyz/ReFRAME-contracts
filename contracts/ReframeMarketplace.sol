@@ -49,7 +49,7 @@ contract ReframeMarketplace is MarketplaceBase {
             revert NFTNotOwned();
         }
 
-        uint256 listingId = nextListingId + 1;
+        uint256 listingId = ++nextListingId;
 
         listings[listingId] = Listing({
             listingId: listingId,
@@ -106,7 +106,7 @@ contract ReframeMarketplace is MarketplaceBase {
             revert NFTNotOwned();
         }
 
-        uint256 listingId = nextListingId + 1;
+        uint256 listingId = ++nextListingId;
 
         listings[listingId] = Listing({
             listingId: listingId,
