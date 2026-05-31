@@ -111,11 +111,13 @@ contract ERC1155SingleTokenFrame is
         }
     }
 
-    function uri(uint256 tokenId) public pure override returns (string memory) {
+    function uri(uint256 tokenId) public view override returns (string memory) {
         return
             string(
                 abi.encodePacked(
-                    "https://test.xyz/api/metadata/",
+                    "https://nft.reframeit.xyz/api/v1/metadata/",
+                    address(this),
+                    "/",
                     Strings.toString(tokenId)
                 )
             );

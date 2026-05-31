@@ -73,7 +73,14 @@ contract ERC721SingleTokenFrame is
         return super.supportsInterface(interfaceId);
     }
 
-    function _baseURI() internal pure override returns (string memory) {
-        return "https://test.xyz/api/metadata/";
+    function _baseURI() internal view override returns (string memory) {
+        return
+            string(
+                abi.encodePacked(
+                    "https://nft.reframeit.xyz/api/v1/metadata/",
+                    address(this),
+                    "/"
+                )
+            );
     }
 }
