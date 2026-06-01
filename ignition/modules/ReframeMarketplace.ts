@@ -1,10 +1,10 @@
 import { buildModule } from "@nomicfoundation/hardhat-ignition/modules";
 
-export default buildModule("ReframeMarketplace", (m) => {
+export default buildModule("ReframeMarketplaceV1", (m) => {
   const factory = m.contract("ReframeMarketplace", [
-    "0x480eDE04B09e86D8e9Dd5042eDfc270D78B38F35",
-    "0x480eDE04B09e86D8e9Dd5042eDfc270D78B38F35",
-    1000
+    "0x3895901854b7fC3DFa4a46c52831eFda44beC751",
+    "0x3895901854b7fC3DFa4a46c52831eFda44beC751",
+    500
   ]);
 
   return { factory };
