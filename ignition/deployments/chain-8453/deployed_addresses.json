@@ -1,5 +1,7 @@
 {
   "ERC721SingleTokenFactoryV1#ERC721SingleTokenFactory": "0x1AE8B5582562D1cF2947214bC4F433942E143CbD",
   "ERC1155SingleTokenFactoryV1#ERC1155SingleTokenFactory": "0x46a756F94c8C363227fE672FF60b0C0a0262DB1a",
-  "ReframeMarketplaceV1#ReframeMarketplace": "0xA882C0fB9E1e8f446475575153869AE7b69E4a1d"
+  "ReframeMarketplaceV1#ReframeMarketplace": "0xA882C0fB9E1e8f446475575153869AE7b69E4a1d",
+  "ERC721SingleTokenFactoryV2#ERC721SingleTokenFactory": "0xBB2e464f435bCC11FF6f3a5A70a5cC80f7DFe8ff",
+  "ERC1155SingleTokenFactoryV2#ERC1155SingleTokenFactory": "0xa66ad8592d22BE4eF645CCDEB73a445b7d2aABf6"
 }
