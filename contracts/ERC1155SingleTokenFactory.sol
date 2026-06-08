@@ -15,7 +15,11 @@ contract ERC1155SingleTokenFactory is
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
     bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
 
-    constructor() {
+    string public metadataBaseURI;
+
+    constructor(string memory _baseURI) {
+        metadataBaseURI = _baseURI;
+
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(ADMIN_ROLE, msg.sender);
         _grantRole(PAUSER_ROLE, msg.sender);
@@ -31,7 +35,8 @@ contract ERC1155SingleTokenFactory is
             _name,
             _symbol,
             _royaltyPercentage,
-            _editionSize
+            _editionSize,
+            metadataBaseURI
         );
 
         emit NFTDropped(address(newNFT), msg.sender, _editionSize);
@@ -56,6 +61,12 @@ contract ERC1155SingleTokenFactory is
     function unpause() external onlyRole(PAUSER_ROLE) {
         _unpause();
         emit PausedStateChanged(false);
+    }
+
+    function setBaseURI(
+        string calldata newBaseURI
+    ) external onlyRole(ADMIN_ROLE) {
+        metadataBaseURI = newBaseURI;
     }
 
     function _setupRoles(address newNFTAddress) internal {

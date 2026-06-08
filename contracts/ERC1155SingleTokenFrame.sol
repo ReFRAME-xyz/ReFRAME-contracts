@@ -27,6 +27,8 @@ contract ERC1155SingleTokenFrame is
     // Token symbol
     string private _symbol;
 
+    string private _metadataBaseURI;
+
     // max supply of each token ID
     mapping(uint256 => uint256) public editionSizes;
 
@@ -37,7 +39,8 @@ contract ERC1155SingleTokenFrame is
         string memory name_,
         string memory symbol_,
         uint96 _royaltyPercentage,
-        uint256 _editionSize
+        uint256 _editionSize,
+        string memory _metadataURI
     ) ERC1155("") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(ADMIN_ROLE, msg.sender);
@@ -54,6 +57,7 @@ contract ERC1155SingleTokenFrame is
 
         _name = name_;
         _symbol = symbol_;
+        _metadataBaseURI = _metadataURI;
         creator = tx.origin;
 
         // Set royalty using ERC2981 with basis points (1 bp = 0.01%)
@@ -115,7 +119,7 @@ contract ERC1155SingleTokenFrame is
         return
             string(
                 abi.encodePacked(
-                    "https://nft.reframeit.xyz/api/v1/metadata/",
+                    _metadataBaseURI,
                     Strings.toHexString(address(this)),
                     "/",
                     Strings.toString(tokenId)

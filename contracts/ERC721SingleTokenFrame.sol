@@ -20,10 +20,13 @@ contract ERC721SingleTokenFrame is
     uint256 public totalSupply;
     address public creator;
 
+    string private _metadataBaseURI;
+
     constructor(
         string memory _name,
         string memory _symbol,
-        uint96 _royaltyPercentage
+        uint96 _royaltyPercentage,
+        string memory _metadataURI
     ) ERC721(_name, _symbol) {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(ADMIN_ROLE, msg.sender);
@@ -38,6 +41,7 @@ contract ERC721SingleTokenFrame is
             revert InvalidRoyaltyPercentage(_royaltyPercentage);
         }
 
+        _metadataBaseURI = _metadataURI;
         creator = tx.origin;
 
         // Set royalty using ERC2981 with basis points (1 bp = 0.01%)
@@ -78,7 +82,7 @@ contract ERC721SingleTokenFrame is
         return
             string(
                 abi.encodePacked(
-                    "https://nft.reframeit.xyz/api/v1/metadata/",
+                    _metadataBaseURI,
                     Strings.toHexString(address(this)),
                     "/"
                 )
