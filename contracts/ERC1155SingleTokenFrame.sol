@@ -116,7 +116,7 @@ contract ERC1155SingleTokenFrame is
             string(
                 abi.encodePacked(
                     "https://nft.reframeit.xyz/api/v1/metadata/",
-                    address(this),
+                    Strings.toHexString(address(this)),
                     "/",
                     Strings.toString(tokenId)
                 )

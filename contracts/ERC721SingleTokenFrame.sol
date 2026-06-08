@@ -4,6 +4,7 @@ pragma solidity ^0.8.24;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/token/common/ERC2981.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "./interfaces/IERC721Frame.sol";
 
 contract ERC721SingleTokenFrame is
@@ -78,7 +79,7 @@ contract ERC721SingleTokenFrame is
             string(
                 abi.encodePacked(
                     "https://nft.reframeit.xyz/api/v1/metadata/",
-                    address(this),
+                    Strings.toHexString(address(this)),
                     "/"
                 )
             );
